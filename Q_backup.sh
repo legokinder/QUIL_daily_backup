@@ -11,7 +11,7 @@ fi
 # Storj setup (run only once)
 if [ ! -f "/root/.local/share/storj/uplink/config.yaml" ]; then
     echo "Setting up uplink CLI..."
-    uplink setup --api-key "YOUR_API_KEY" --satellite "YOUR_SATELLITE_URL" --passphrase "YOUR_PASSPHRASE"
+    uplink setup
 fi
 
 # Define variables
@@ -22,9 +22,13 @@ STORJ_BUCKET="$VPS_IP"
 # Define backup file name with date and time
 BACKUP_FILE="backup_$(date +%Y%m%d_%H%M%S).tar.gz"
 
-# Create a tar.gz file of the directory you want to backup and upload to Storj
-echo "Creating tar file of $DIR_TO_BACKUP and uploading to Storj..."
-tar -czf - -C "$(dirname "$DIR_TO_BACKUP")" "$(basename "$DIR_TO_BACKUP")" | uplink cp --stdin "sj://$STORJ_BUCKET/$BACKUP_FILE"
+# Create a tar.gz file of the directory you want to backup
+echo "Creating tar file of $DIR_TO_BACKUP..."
+tar -czf "/tmp/$BACKUP_FILE" -C "$(dirname "$DIR_TO_BACKUP")" "$(basename "$DIR_TO_BACKUP")"
+
+# Upload the backup file to Storj
+echo "Uploading $BACKUP_FILE to Storj..."
+uplink cp "/tmp/$BACKUP_FILE" "sj://$STORJ_BUCKET/$BACKUP_FILE"
 
 echo "Backup script execution completed."
 
@@ -60,3 +64,4 @@ if ! crontab -l | grep -q "/root/Q_backup.sh"; then
     # Add the script to cron with the specified schedule
     setup_cron_job "$cron_schedule" "/root/Q_backup.sh"
 fi
+
