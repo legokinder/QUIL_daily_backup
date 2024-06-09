@@ -26,7 +26,7 @@ wget https://raw.githubusercontent.com/legokinder/QUIL_daily_backup/main/Q_backu
 ```
 2. Run
 ```
-sudo nano ~/.Q_backup.sh
+sudo nano Q_backup.sh
 ```
  then, replace ```YOUR_API_KEY```, ```YOUR_SATELLITE_URL```, ```YOUR_PASSPHRASE``` from your script  
  You may make your api key, passphrase in the storj website
