@@ -17,15 +17,28 @@ fi
 # Define variables
 DIR_TO_BACKUP="/root/ceremonyclient/node/.config"
 VPS_IP=$(hostname -I | awk '{print $1}')
-STORJ_BUCKET="$VPS_IP"
+STORJ_BUCKET="qnode-$VPS_IP"
+
+# Check if the bucket already exists
+if ! uplink ls | grep -q "sj://$STORJ_BUCKET"; then
+    # Bucket does not exist, create it
+    echo "Creating a new bucket..."
+    uplink mb "sj://$STORJ_BUCKET"
+fi
 
 # Define backup file name with date and time
-BACKUP_FILE="backup_$(date +%Y%m%d_%H%M%S).tar.gz"
+BACKUP_FILE="backup_$(TZ=Asia/Seoul date +%Y%m%d_%H%M).tar.gz"
 
 # Create a tar.gz file of the directory you want to backup and upload to Storj
 echo "Creating tar file of $DIR_TO_BACKUP and uploading to Storj..."
 tar -czf "/tmp/$BACKUP_FILE" -C "$(dirname "$DIR_TO_BACKUP")" "$(basename "$DIR_TO_BACKUP")"
-uplink cp "/tmp/$BACKUP_FILE" "sj://$STORJ_BUCKET/$BACKUP_FILE"
+uplink cp /tmp/$BACKUP_FILE sj://$STORJ_BUCKET/$BACKUP_FILE
+
+echo "Backup script execution completed."
+
+# Remove the backup file from /tmp
+echo "Removing backup file from /tmp..."
+rm -f "/tmp/$BACKUP_FILE"
 
 echo "Backup script execution completed."
 
@@ -54,5 +67,6 @@ if ! crontab -l | grep -q "/root/Q_backup.sh"; then
     # Add the script to cron with the specified schedule
     setup_cron_job "$cron_schedule" "/root/Q_backup.sh"
 fi
+
 
 
