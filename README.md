@@ -22,22 +22,22 @@ To prevent your cloud getting full, the backed up file in your storj will be del
 # Usage
 1. Download the Script
 ```
-   wget https://raw.githubusercontent.com/legokinder/QUIL_daily_backup/main/Q_backup.sh
+wget https://raw.githubusercontent.com/legokinder/QUIL_daily_backup/main/Q_backup.sh
 ```
 2. Run
 ```
-   sudo nano ~/.Q_backup.sh
+sudo nano ~/.Q_backup.sh
 ```
  then, replace ```YOUR_API_KEY```, ```YOUR_SATELLITE_URL```, ```YOUR_PASSPHRASE``` from your script  
  You may make your api key, passphrase in the storj website
  
  3. Make the Script Executable
 ```
-   chmod +x Q_backup.sh
+chmod +x Q_backup.sh
 ```
  4. Run the Script Manually
 ```
-   ./Q_backup.sh
+./Q_backup.sh
 ```
 
 
