@@ -17,7 +17,7 @@ fi
 # Storj setup (run only once)
 if [ ! -f "/root/.local/share/storj/uplink/config.yaml" ]; then
     echo "Setting up uplink CLI..."
-    uplink access create --import-as "main" create --satellite-address "YOUR_SATELLITE_URL" --api-key "YOUR_API_KEY" --passphrase-stdin <<< "YOUR_PASSPHRASE"
+    uplink access create --import-as "main" --satellite-address "YOUR_SATELLITE_URL" --api-key "YOUR_API_KEY" --passphrase-stdin <<< "YOUR_PASSPHRASE"
 fi
 
 # Define variables
