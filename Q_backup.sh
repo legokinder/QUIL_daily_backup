@@ -17,7 +17,7 @@ fi
 # Storj setup (run only once)
 if [ ! -f "/root/.local/share/storj/uplink/config.yaml" ]; then
     echo "Setting up uplink CLI..."
-    uplink access create --satellite-address "YOUR_SATELLITE_URL" --api-key "YOUR_API_KEY" --passphrase-stdin <<< "YOUR_PASSPHRASE"
+    uplink access --import-as "main" create --satellite-address "YOUR_SATELLITE_URL" --api-key "YOUR_API_KEY" --passphrase-stdin <<< "YOUR_PASSPHRASE"
 fi
 
 # Define variables
@@ -72,7 +72,11 @@ if ! crontab -l | grep -q "/root/Q_backup.sh"; then
 
     # Add the script to cron with the specified schedule
     setup_cron_job "$cron_schedule" "/root/Q_backup.sh"
+    echo "Backup script scheduled to run every $interval_hours hours."
+else
+    # Get the current cron schedule
+    current_schedule=$(crontab -l | grep "/root/Q_backup.sh" | awk '{print $1,$2,$3,$4,$5}')
+    echo "Backup script already scheduled to run at $current_schedule."
 fi
-
 
 
