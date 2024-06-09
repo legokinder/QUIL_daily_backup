@@ -32,13 +32,6 @@ uplink cp "/tmp/$BACKUP_FILE" "sj://$STORJ_BUCKET/$BACKUP_FILE"
 
 echo "Backup script execution completed."
 
-# Remove backups older than 10 days from Storj
-OLD_DATE=$(date --date="10 days ago" +%Y%m%d)
-echo "Removing Storj backups older than 10 days..."
-uplink rm "sj://$STORJ_BUCKET/backup_$OLD_DATE*.tar.gz"
-
-echo "Storj backup deletion completed."
-
 # Function to set up cron job
 setup_cron_job() {
     local schedule=$1
