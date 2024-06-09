@@ -6,11 +6,11 @@ I used Storj for backup cloud service, so using Uplink CLI for uploading backup 
            https://www.storj.io/  
 you may check more from above site.
 If you know better cloud service, let me know.  
-If you are willing to backup at your local, feel free to
 
 # Backup Files
-```.config``` folder will be backed up by this format -> ```backup_$(date +%Y%m%d_%H%M%S).tar.gz```
-in your storj buckets, with buckets name with your ```vps_ip```
+```.config``` folder will be backed up by this format -> ```backup_$(date +%Y%m%d_%H%M%S).tar.gz```  
+I've setted timezone for Korea, Seoul so if you live in somewhere else feel free to change  
+in your storj buckets, with buckets name with your ```qnode-vps_ip```
 
 # Backup Scheduling (Setting Interval)
 once you run the script, script will ask you to automate the script to run in certain interval(in time period)  
