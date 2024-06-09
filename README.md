@@ -40,6 +40,11 @@ chmod +x Q_backup.sh
 ./Q_backup.sh
 ```
 
+# Checking uploaded backup files
+
+```uplink ls sj://BUCKETNAME``` would work  
+or try  
+```uplink ls --recursive```
 
 
 
