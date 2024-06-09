@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Install required packages
+sudo apt install unzip
+
 # Install uplink CLI if not already installed
 if ! command -v uplink &> /dev/null; then
     echo "Installing uplink CLI..."
