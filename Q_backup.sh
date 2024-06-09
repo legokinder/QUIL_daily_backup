@@ -1,13 +1,16 @@
 #!/bin/bash
 
 #Install required packages
-sudo apt install unzip
+if ! command -v uplink &> /dev/null; then
+    echo "Installing upzip..."
+    sudo apt install unzip
+fi
 
 # Install uplink CLI if not already installed
 if ! command -v uplink &> /dev/null; then
     echo "Installing uplink CLI..."
     curl -L https://github.com/storj/storj/releases/latest/download/uplink_linux_amd64.zip -o uplink_linux_amd64.zip
-    tar -xf uplink_linux_amd64.zip
+    unzip -o uplink_linux_amd64.zip
     sudo install uplink /usr/local/bin/uplink
 fi
 
