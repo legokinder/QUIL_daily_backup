@@ -24,7 +24,8 @@ BACKUP_FILE="backup_$(date +%Y%m%d_%H%M%S).tar.gz"
 
 # Create a tar.gz file of the directory you want to backup and upload to Storj
 echo "Creating tar file of $DIR_TO_BACKUP and uploading to Storj..."
-tar -czf - -C "$(dirname "$DIR_TO_BACKUP")" "$(basename "$DIR_TO_BACKUP")" | uplink cp --stdin "sj://$STORJ_BUCKET/$BACKUP_FILE"
+tar -czf "/tmp/$BACKUP_FILE" -C "$(dirname "$DIR_TO_BACKUP")" "$(basename "$DIR_TO_BACKUP")"
+uplink cp "/tmp/$BACKUP_FILE" "sj://$STORJ_BUCKET/$BACKUP_FILE"
 
 echo "Backup script execution completed."
 
