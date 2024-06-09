@@ -9,7 +9,7 @@ If you know better cloud service, let me know.
 
 # Backup Files
 ```.config``` folder will be backed up by this format -> ```backup_$(date +%Y%m%d_%H%M%S).tar.gz```  
-I've setted timezone for Korea, Seoul so if you live in somewhere else feel free to change  
+(I've setted timezone for Korea, Seoul so if you live in somewhere else feel free to change)  
 in your storj buckets, with buckets name with your ```qnode-vps_ip```
 
 # Backup Scheduling (Setting Interval)
