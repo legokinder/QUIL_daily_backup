@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set PATH explicitly
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 #Install required packages
 if ! command -v unzip &> /dev/null; then
     echo "Installing unzip..."
@@ -26,7 +29,7 @@ VPS_IP=$(hostname -I | awk '{print $1}')
 STORJ_BUCKET="qnode-$VPS_IP"
 
 # Check if the bucket already exists
-if ! uplink ls | grep -q "sj://$STORJ_BUCKET"; then
+if ! /usr/local/bin/uplink ls "sj://$STORJ_BUCKET" >/dev/null 2>&1; then
     # Bucket does not exist, create it
     echo "Creating a new bucket..."
     uplink mb "sj://$STORJ_BUCKET"
