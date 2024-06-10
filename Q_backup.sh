@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Install required packages
-if ! command -v upzip &> /dev/null; then
+if ! command -v unzip &> /dev/null; then
     echo "Installing upzip..."
     sudo apt install unzip
 fi
