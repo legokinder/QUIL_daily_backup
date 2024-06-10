@@ -48,24 +48,32 @@ rm -f "/tmp/$BACKUP_FILE"
 
 echo "Backup script execution completed."
 
-# Function to set up cron job
+#!/bin/bash
+
+# Function to set up a cron job
 setup_cron_job() {
-    local schedule=$1
-    local script_path=$2
+    local schedule="$1"
+    local script_path="$2"
 
     # Remove existing cron job for the script
     crontab -l | grep -v "$script_path" | crontab -
 
     # Add new cron job
-    (crontab -l; echo "$schedule $script_path") | crontab -
+    (crontab -l; echo "$schedule $script_path >> /var/log/Q_backup.log 2>&1") | crontab -
     echo "Cron job added to run at: $schedule"
 }
 
-# Check if this is the first time the script is run (if the cron job is not already set)
+# Check if the cron job already exists
 if ! crontab -l | grep -q "/root/Q_backup.sh"; then
     # Prompt the user for backup interval
     echo "Enter backup interval in hours (e.g., '24' for every 24 hours):"
     read -r interval_hours
+
+    # Validate the interval input
+    if ! [[ "$interval_hours" =~ ^[0-9]+$ ]]; then
+        echo "Invalid input. Please enter a positive integer."
+        exit 1
+    fi
 
     # Convert interval to cron expression (run script every n hours)
     cron_schedule="0 */$interval_hours * * *"
@@ -78,5 +86,4 @@ else
     current_schedule=$(crontab -l | grep "/root/Q_backup.sh" | awk '{print $1,$2,$3,$4,$5}')
     echo "Backup script already scheduled to run at $current_schedule."
 fi
-
 
