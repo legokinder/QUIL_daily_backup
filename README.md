@@ -16,9 +16,6 @@ in your storj buckets, with buckets name with your ```qnode-vps_ip```
 once you run the script, script will ask you to automate the script to run in certain interval(in time period)  
 (e.g., '24' for backing up the .config folder every 24 hours)
 
-# Removal of backups that are older than 10 days
-To prevent your cloud getting full, the backed up file in your storj will be deleted for backups that are older than 10 days
-
 # Usage
 1. Download the Script
 ```
